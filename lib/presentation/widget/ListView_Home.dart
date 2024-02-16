@@ -80,7 +80,7 @@ class _ListViewHomeState extends State<ListViewHome> {
                                 ),
                                 Texxt(
                                     text:
-                                        "${surahdetails[index]['jumlah_ayat']} veres",
+                                        "${surahdetails[index]['jumlah_ayat']} Verses",
                                     fontsize: 12,
                                     color: Color(0xff8789A3))
                               ],

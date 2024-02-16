@@ -7,7 +7,7 @@ class StackHome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
       child: Stack(
         children: [
           Container(
@@ -33,7 +33,7 @@ class StackHome extends StatelessWidget {
               bottom: 0,
               child: SvgPicture.asset("lib/assets/images/quran.svg")),
           Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 20),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -56,10 +56,6 @@ class StackHome extends StatelessWidget {
                   'Al-Fatiha',
                   style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                 ),
-                const Text(
-                  '0',
-                  style: TextStyle(fontSize: 14),
-                )
               ],
             ),
           ),
