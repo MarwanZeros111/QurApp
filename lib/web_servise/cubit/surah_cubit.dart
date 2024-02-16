@@ -6,17 +6,18 @@ import 'package:quran_app/web_servise/Web_Servise.dart';
 part 'surah_state.dart';
 
 class SurahCubit extends Cubit<SurahState> {
-  SurahCubit(this.apiService) : super(SurahInitial());
+  SurahCubit() : super(SurahInitial());
 
-  final ApiService apiService;
-  Future<void> getSurah() async {
+  getSurah() async {
+    final ApiService apiService = ApiService();
     emit(SurahLoading());
 
     try {
-      var result = await apiService.get();
+      List<dynamic> result = await apiService.get();
       emit(SurahSuccess(const SurahModel()));
+      return result;
     } on Exception catch (e) {
-      emit(SurahFaliure('${e}'));
+      emit(SurahFaliure('$e'));
     }
   }
 }

@@ -1,25 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran_app/assets/constant/TextFixed.dart';
 import 'package:quran_app/presentation/widget/ListView_Home.dart';
 import 'package:quran_app/presentation/widget/Stac_Home.dart';
 import 'package:quran_app/presentation/widget/appbar_home.dart';
-import 'package:quran_app/web_servise/cubit/surah_cubit.dart';
 
-class HomeScreen extends StatefulWidget {
+class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
-
-  @override
-  State<HomeScreen> createState() => _HomeScreenState();
-}
-
-class _HomeScreenState extends State<HomeScreen> {
-  @override
-  void initState() {
-    BlocProvider.of<SurahCubit>(context).getSurah();
-    // TODO: implement initState
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +27,12 @@ class _HomeScreenState extends State<HomeScreen> {
             height: 30,
           ),
           StackHome(),
-          ListViewHome()
+          SizedBox(
+            height: 15,
+          ),
+          Expanded(
+            child: ListViewHome(),
+          )
         ],
       ),
     );

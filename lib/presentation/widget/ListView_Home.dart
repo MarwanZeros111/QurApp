@@ -5,8 +5,27 @@ import 'package:quran_app/presentation/Screen/DetailsScreen.dart';
 import 'package:quran_app/presentation/widget/IconText.dart';
 import 'package:quran_app/web_servise/cubit/surah_cubit.dart';
 
-class ListViewHome extends StatelessWidget {
+class ListViewHome extends StatefulWidget {
   const ListViewHome({super.key});
+
+  @override
+  State<ListViewHome> createState() => _ListViewHomeState();
+}
+
+class _ListViewHomeState extends State<ListViewHome> {
+  List surahdetails = [];
+  void initState() {
+    // TODO: implement initState
+    getsurah();
+    super.initState();
+  }
+
+  Future getsurah() async {
+    try {
+      surahdetails = await BlocProvider.of<SurahCubit>(context).getSurah();
+    } catch (e) {}
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<SurahCubit, SurahState>(
@@ -18,14 +37,15 @@ class ListViewHome extends StatelessWidget {
             child: ListView.builder(
               scrollDirection: Axis.vertical,
               shrinkWrap: true,
-              itemCount: 10,
+              itemCount: surahdetails.length,
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const DetailsScreen()),
+                          builder: (context) =>
+                              DetailScreen(audio: surahdetails[index])),
                     );
                   },
                   child: SizedBox(
@@ -35,30 +55,32 @@ class ListViewHome extends StatelessWidget {
                       children: [
                         IconWithText(
                             icon: "lib/assets/images/nomor-surah.svg",
-                            text: "1"),
+                            text: "${surahdetails[index]['nomor'].toString()}"),
                         const SizedBox(
                           width: 1,
                         ),
-                        const Column(
+                        Column(
                           children: [
-                            SizedBox(
+                            const SizedBox(
                               height: 15,
                             ),
                             Texxt(
-                                text: "alo",
+                                text: "${surahdetails[index]['nama_latin']}",
                                 fontsize: 20,
                                 color: Color(0xffA44AFF)),
                             Row(
                               children: [
                                 Texxt(
-                                    text: 'Alo',
+                                    text:
+                                        '${surahdetails[index]['tempat_turun']}',
                                     fontsize: 12,
                                     color: Color(0xff8789A3)),
                                 SizedBox(
                                   width: 10,
                                 ),
                                 Texxt(
-                                    text: "alo",
+                                    text:
+                                        "${surahdetails[index]['jumlah_ayat']} veres",
                                     fontsize: 12,
                                     color: Color(0xff8789A3))
                               ],
@@ -67,7 +89,9 @@ class ListViewHome extends StatelessWidget {
                         ),
                         const Spacer(),
                         Texxt(
-                            text: 'Alo', fontsize: 20, color: Color(0xFFA44AFF))
+                            text: '${surahdetails[index]['nama']}',
+                            fontsize: 20,
+                            color: Color(0xFFA44AFF))
                       ],
                     ),
                   ),
